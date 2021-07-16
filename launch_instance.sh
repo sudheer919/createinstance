@@ -26,11 +26,11 @@ Instance_Create() {
     echo -e "Instance \e[35m${COMPONENT}\e[0m Already Exist"
   fi
 
-  IPADDRESS=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${COMPONENT} | jq .Reservations[].Instances[].PrivateIpAddress | grep -v null | xargs)
-  sed -e "s/COMPONENT/${COMPONENT}/" -e "s/IPADDRESS/${IPADDRESS}/" record.json >/tmp/record.json
-  aws route53 change-resource-record-sets --hosted-zone-id ${HOSTED_ZONE_ID} --change-batch file:///tmp/record.json
-  sed -i -e "/${COMPONENT}/ d " ../inventory
-  echo "${IPADDRESS}  APP=$(echo ${COMPONENT})" >> ../inventory
+  #IPADDRESS=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${COMPONENT} | jq .Reservations[].Instances[].PrivateIpAddress | grep -v null | xargs)
+  #sed -e "s/COMPONENT/${COMPONENT}/" -e "s/IPADDRESS/${IPADDRESS}/" record.json >/tmp/record.json
+  #aws route53 change-resource-record-sets --hosted-zone-id ${HOSTED_ZONE_ID} --change-batch file:///tmp/record.json
+  #sed -i -e "/${COMPONENT}/ d " ../inventory
+  #echo "${IPADDRESS}  APP=$(echo ${COMPONENT})" >> ../inventory
 }
 
 if [ "$1" == "all" ]; then
